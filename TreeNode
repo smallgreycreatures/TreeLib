@@ -1,3 +1,100 @@
-class TreeNode{
+
+public class TreeNode<E extends Comparable<E>>{
+
+	E data; 					//The data in the node
+	TreeNode<E> firstChild; 	
+	TreeNode<E> nextSibling;
+
+	public TreeNode(E data){
+		this(data, null, null); 
+	}
+
+	private TreeNode(E data, TreeNode<E> fc, TreeNode<E> ns){
+		this.data = data; 
+		this.firstChild = fc; 
+		this.nextSibling = ns; 
+	}
+	
+	public boolean contains(E data){
+		TreeNode<E> t = this; 
+		return contains(data, t); 
+	}
+	
+	private boolean contains(E data, TreeNode<E> t){
+		
+		if(t == null)
+			return false; 
+		
+		else if(t.data == data)
+			return true; 
+		else
+			return contains(data, t.nextSibling); 
+		
+	}
+	
+	public TreeNode<E> getType(E data){
+		
+		TreeNode<E> t = this; 
+		return getType(data, t);
+		
+	}
+	
+	private TreeNode<E> getType(E data, TreeNode<E> t){
+		
+		if(t.data == data){
+			return t; 
+		} else {
+			return getType(data, t.nextSibling);
+		}
+		
+	}
+
+	public boolean addType(E data) {
+		TreeNode<E> t = this;
+		addSibling(data, t); 
+		return true; 
+	}
+
+	public void addSubType(E data){
+
+		TreeNode<E> t = this; 
+		
+		if(t.firstChild == null)
+			t.firstChild = new TreeNode<E>(data); 
+		else
+			addSibling(data, t.firstChild); 
+
+	}
+
+	private void addSibling(E data, TreeNode<E> t){
+
+		if(t == null) {
+			t = new TreeNode<E>(data); 
+		}
+		else if(t.nextSibling == null){
+			t.nextSibling = new TreeNode<E>(data);
+		}
+		else
+			addSibling(data, t.nextSibling);
+
+	}
+
+	public void getTypes(){
+		getTypes(this); 
+	}
+
+	private void getTypes(TreeNode<E> t){
+
+		if(t == null){
+			System.out.println("Listan är tom");
+		} else if(t.nextSibling == null){
+			System.out.println(t.data);
+		} else{
+			System.out.println(t.data);
+			getTypes(t.nextSibling);
+		}
+
+	}
+
 
 }
