@@ -1,4 +1,3 @@
-
 public class PresetFinder{
 	
 	public static void main(String[] args){
